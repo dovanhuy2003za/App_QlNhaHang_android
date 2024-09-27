@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:background="@drawable/background"
+    android:weightSum="1">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Nhóm 4"
+
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="@android:dimen/app_icon_size"
+        >
+
+    </TextView>
+    <ImageView
+        android:id="@+id/B2"
+        android:layout_width="167dp"
+        android:layout_height="104dp"
+        android:layout_gravity="center"
+
+        android:background="@drawable/logo">
+
+    </ImageView>
+
+
+    <Button
+        android:id="@+id/buttonSignIN"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="25dp"
+        android:text="Sign In"
+        android:onClick="signIn"
+        android:textColor="@color/abc_search_url_text_pressed"
+        />
+
+    <Button
+        android:id="@+id/buttonSignUP"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="25dp"
+        android:text="Sign Up"
+        android:textColor="@color/abc_search_url_text_pressed" />
+
+</LinearLayout>
