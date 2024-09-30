@@ -12,9 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp"
         tools:targetApi="35">
-        <activity
-            android:name=".SignUPActivity"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -24,6 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SignUPActivity"
+            />
+        <activity android:name=".NavigationDrawer"></activity>
     </application>
 
 </manifest>

@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     // Methos to handleClick Event of Sign In Button
-    /*public void signIn(View V)
+    public void signIn(View V)
     {
         final Dialog dialog = new Dialog(MainActivity.this);
         dialog.setContentView(R.layout.signin);
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Toast.makeText(MainActivity.this, "Congrats: Login Successfull", Toast.LENGTH_LONG).show();
                     dialog.dismiss();
-                    Intent intentHome=new Intent(getApplicationContext(),CC.class);
+                    Intent intentHome=new Intent(getApplicationContext(),NavigationDrawer.class);
                     intentHome.putExtra("UserName",userName);
                     startActivity(intentHome);
                 }
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         dialog.show();
-    }*/
+    }
 
     @Override
     protected void onDestroy() {
