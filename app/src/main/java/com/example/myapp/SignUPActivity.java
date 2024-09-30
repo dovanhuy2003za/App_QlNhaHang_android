@@ -1,6 +1,7 @@
 package com.example.myapp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,7 @@ public class SignUPActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signin);
+        setContentView(R.layout.activity_sign);
 
         // get Instance  of Database Adapter
         loginDataBaseAdapter=new LoginDataBaseAdapter(this);
@@ -60,6 +61,8 @@ public class SignUPActivity extends AppCompatActivity {
                     // Save the Data in Database
                     loginDataBaseAdapter.insertEntry(userName, password);
                     Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG).show();
+                    Intent intenthome=new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(intenthome);
                 }
             }
         });

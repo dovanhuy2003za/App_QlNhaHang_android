@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/chat"
+        android:icon="@drawable/chat"
+        android:title="Nhắn tin"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/map"
+        android:icon="@drawable/map"
+        android:title="Bản đồ"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/collection"
+        android:icon="@drawable/collection"
+        android:title="Hình ảnh"
+        app:showAsAction="ifRoom" />
+</menu>

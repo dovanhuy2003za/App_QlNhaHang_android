@@ -9,7 +9,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public DataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
     {
-        super(context, name, factory, 0);
+        super(context, name, factory, 1);
     }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
