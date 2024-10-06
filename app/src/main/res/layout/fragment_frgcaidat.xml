@@ -8,14 +8,12 @@
     tools:context=".frgcaidat">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Cài đặt"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        />
+
+        android:id="@+id/rcvhoadon">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>

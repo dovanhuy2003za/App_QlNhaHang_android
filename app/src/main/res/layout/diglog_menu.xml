@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/dg_menu">
+    <EditText
+        android:id="@+id/editTextTenMon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tên món"
+        android:ems="10"
+        >
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/editTextDonGia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+
+        android:hint="Đơn giá"
+        />
+
+    <Button
+        android:id="@+id/buttonMenu"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Cập nhật" />
+
+</LinearLayout>
