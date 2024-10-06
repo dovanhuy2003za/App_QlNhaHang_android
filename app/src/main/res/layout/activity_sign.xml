@@ -14,6 +14,7 @@
         android:hint="Tên đăng nhập"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:textColorHint="@color/white">
         <requestFocus/>
     </EditText>
@@ -23,6 +24,7 @@
         android:layout_height="wrap_content"
         android:hint="Mật khẩu"
         android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:inputType="textPassword"/>
     <EditText
         android:id="@+id/editTextConfirmPassword"
@@ -30,11 +32,13 @@
         android:layout_height="wrap_content"
         android:hint="Xác nhận mật khẩu"
         android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:inputType="textPassword"/>
     <Button
         android:id="@+id/buttonCreateAccount"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:text="Tạo tài khoản"
         android:layout_marginBottom="60dp"/>
 </LinearLayout>

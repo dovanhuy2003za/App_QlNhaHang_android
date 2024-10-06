@@ -3,19 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#00BCD4"
 
     tools:context=".frgtrangchu">
-
-
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Trang chủ"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        />
+        >
+        <androidx.viewpager2.widget.ViewPager2
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/view_page2_home"
+            android:layout_above="@id/bottomfrghome"
+            >
+
+        </androidx.viewpager2.widget.ViewPager2>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomfrghome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/bottom_menu"
+            app:itemTextColor="@color/color_bottomnav"
+            app:itemIconTint="@color/color_bottomnav">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </RelativeLayout>
+
 
 </FrameLayout>
