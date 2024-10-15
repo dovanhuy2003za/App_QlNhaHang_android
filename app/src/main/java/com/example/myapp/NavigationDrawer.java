@@ -52,8 +52,7 @@ public class NavigationDrawer extends AppCompatActivity {
                         frgtrangchu frgtc=new frgtrangchu();
                         replaceFrg(frgtc);
                         currentFrag=fraghome;
-
-                        toolbar.setTitle("Trang chu");
+                        toolbar.setTitle("Trang chủ");
                     }
 
                 } else if (itemid==R.id.setting) {
@@ -83,6 +82,7 @@ public class NavigationDrawer extends AppCompatActivity {
 
         frgtrangchu frgtc=new frgtrangchu();
         replaceFrg(frgtc);
+        toolbar.setTitle("Trang chủ");
         nav.setCheckedItem(R.id.home);
     }
 
