@@ -5,15 +5,28 @@ public class dsHoaDon {
     private String tenkh;
     private  int tongtien;
     private String ngay;
+    private  int soban;
+
+    public int getSoban() {
+        return soban;
+    }
+
+    public void setSoban(int soban) {
+        this.soban = soban;
+    }
+
     public  dsHoaDon(){
         this.id=id;
         this.tenkh = tenkh;
         this.tongtien = tongtien;
+        this.soban=soban;
         this.ngay = ngay;
+
     }
-    public dsHoaDon(String tenkh, int tongtien, String ngay) {
+    public dsHoaDon(String tenkh, int tongtien, int soban, String ngay) {
         this.tenkh = tenkh;
         this.tongtien = tongtien;
+        this.soban=soban;
         this.ngay = ngay;
     }
 

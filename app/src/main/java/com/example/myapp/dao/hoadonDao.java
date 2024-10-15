@@ -32,7 +32,8 @@ public class hoadonDao {
                     mn.setId(cs.getInt(0));
                     mn.setTenkh(cs.getString(1));
                     mn.setTongtien(cs.getInt(2));
-                    mn.setNgay(cs.getString(3));
+                    mn.setSoban(cs.getInt(3));
+                    mn.setNgay(cs.getString(4));
                     list.add(mn);
                     cs.moveToNext();
                 }
