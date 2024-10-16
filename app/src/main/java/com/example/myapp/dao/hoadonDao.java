@@ -1,5 +1,6 @@
 package com.example.myapp.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -46,5 +47,22 @@ public class hoadonDao {
             db.endTransaction();//kết thúc lệnh chạy
         }
         return list;
+    }
+    public boolean insert(dsHoaDon mn){
+        SQLiteDatabase db=dataBaseHelper1.getWritableDatabase();
+        //sử dụng contentvalue để đưa dữ liệu vào database
+        ContentValues values=new ContentValues();
+        values.put("tenkh",mn.getTenkh());
+        values.put("tongtien",mn.getTongtien());
+        values.put("soban",mn.getSoban());
+        values.put("ngay",mn.getNgay());
+        //nếu add thành công sẽ trả về giá trị tương ứng số hàng mà dữ liệu được add trong bảng
+        long row=db.insert("hoadon",null,values);
+        return (row>0);
+    }
+    public boolean delete(int id){
+        SQLiteDatabase db=dataBaseHelper1.getWritableDatabase();
+        long row=db.delete("hoadon","id=?",new String[]{String.valueOf(id)});
+        return (row>0);
     }
 }

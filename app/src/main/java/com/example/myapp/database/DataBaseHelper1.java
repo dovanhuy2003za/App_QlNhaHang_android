@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 public class DataBaseHelper1 extends SQLiteOpenHelper {
     public static final String DB_Name="QLNH";
     public DataBaseHelper1(Context context) {
-        super(context, DB_Name, null, 2);
+        super(context, DB_Name, null, 3);
     }
 
 
@@ -38,10 +38,11 @@ public class DataBaseHelper1 extends SQLiteOpenHelper {
 
                 "soluong INTEGER NOT NULL, " +
                 "FOREIGN KEY(idmon) REFERENCES menu(id), " +
-                "FOREIGN KEY(idhd) REFERENCES hoadon(id))");
+                "FOREIGN KEY(idhd) REFERENCES hoadon(id) ON DELETE CASCADE)");
         db.execSQL("INSERT INTO menu (tenmon, dongia) VALUES ('Bún bò', 40000);");
         db.execSQL("INSERT INTO hoadon (tenkh, tongtien, soban, ngay) VALUES ('Nguyen Van A', 120000, 1, '2024-10-15');");
         db.execSQL("INSERT INTO chitiethoadon (idmon, idhd, soluong) VALUES (1, 1, 3);");
+
     }
 
     @Override
