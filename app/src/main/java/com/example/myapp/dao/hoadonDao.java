@@ -38,7 +38,7 @@ public class hoadonDao {
                     list.add(mn);
                     cs.moveToNext();
                 }
-                db.setTransactionSuccessful();//bd chạy thành công
+                db.setTransactionSuccessful();
             }
 
         } catch (Exception e) {

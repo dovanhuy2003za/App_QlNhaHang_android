@@ -12,16 +12,17 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 
 public class NavigationDrawer extends AppCompatActivity {
     DrawerLayout drawlayout;
     Toolbar toolbar;
-    private static  final int fraghome=1;
-    private static  final int fragmenu=2;
-    private static  final int fragsetting=3;
-    private int currentFrag=fraghome;
+    private Fragment currentFrag;
+    private Fragment fraghome;
+    private Fragment fragsetting;
+    private Fragment fragmenu;
 
     private NavigationView nav;
     @Override
@@ -43,45 +44,63 @@ public class NavigationDrawer extends AppCompatActivity {
         //khi click vao item
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                int itemid= item.getItemId();
-                if (itemid==R.id.home){
-                    if (currentFrag!=fraghome){
-                        frgtrangchu frgtc=new frgtrangchu();
-                        replaceFrg(frgtc);
-                        currentFrag=fraghome;
-                        toolbar.setTitle("Trang chủ");
-                    }
+                int itemId = item.getItemId();
+                FragmentManager fragmentManager = getSupportFragmentManager();
 
-                } else if (itemid==R.id.setting) {
-                    if (currentFrag!=fragsetting){
-                        frgcaidat frgcd=new frgcaidat();
-                        replaceFrg(frgcd);
-                        toolbar.setTitle("Dang sách hóa đơn");
-                        currentFrag=fragsetting;
-                    }
-                } else if (itemid==R.id.logout) {
-                    Intent intenthome=new Intent(getApplicationContext(),MainActivity.class);
-                    startActivity(intenthome);
-                } else if (itemid==R.id.menu) {
-                    if (currentFrag!=fragmenu){
-                        frgmenu frgmn=new frgmenu();
-                        replaceFrg(frgmn);
-                        currentFrag=fragmenu;
+                switch (itemId) {
+                    case R.id.home:
+                        if (currentFrag != fraghome) {
+                            if (fraghome == null) {
+                                fraghome = new frgtrangchu();  // Khởi tạo Fragment Trang chủ một lần
+                                fragmentManager.beginTransaction().add(R.id.layouthome, fraghome, "HOME").commit();
+                            }
+                            showFragment(fraghome);
+                            toolbar.setTitle("Trang chủ");
+                        }
+                        break;
 
-                        toolbar.setTitle("Menu");
-                    }
+                    case R.id.setting:
+                        if (currentFrag != fragsetting) {
+                            if (fragsetting == null) {
+                                fragsetting = new frgcaidat();  // Khởi tạo Fragment Cài đặt một lần
+                                fragmentManager.beginTransaction().add(R.id.layouthome, fragsetting, "SETTING").commit();
+                            }
+                            showFragment(fragsetting);
+                            toolbar.setTitle("Danh sách hóa đơn");
+                        }
+                        break;
+
+                    case R.id.menu:
+                        if (currentFrag != fragmenu) {
+                            if (fragmenu == null) {
+                                fragmenu = new frgmenu();  // Khởi tạo Fragment Menu một lần
+                                fragmentManager.beginTransaction().add(R.id.layouthome, fragmenu, "MENU").commit();
+                            }
+                            showFragment(fragmenu);
+                            toolbar.setTitle("Menu");
+                        }
+                        break;
+
+                    case R.id.logout:
+                        Intent intenthome = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intenthome);
+                        break;
 
                 }
+
                 drawlayout.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
 
-        frgtrangchu frgtc=new frgtrangchu();
-        replaceFrg(frgtc);
+
+        fraghome=new frgtrangchu();
+        getSupportFragmentManager().beginTransaction().add(R.id.layouthome, fraghome, "HOME").commit();
+        showFragment(fraghome);
         toolbar.setTitle("Trang chủ");
         nav.setCheckedItem(R.id.home);
     }
@@ -95,10 +114,18 @@ public class NavigationDrawer extends AppCompatActivity {
         }
 
     }
+    private void showFragment(Fragment fragmentToShow) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-    //replace
-    private void replaceFrg(Fragment frg) {
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.layouthome, frg).commit();
+        if (currentFrag!= null) {
+            transaction.hide(currentFrag);  // Ẩn Fragment hiện tại
+        }
+        transaction.show(fragmentToShow);  // Hiển thị Fragment mới
+        transaction.commit();
+
+        currentFrag = fragmentToShow;  // Cập nhật Fragment hiện tại
     }
+    //replace
+
 }
