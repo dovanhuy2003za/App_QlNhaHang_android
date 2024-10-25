@@ -26,7 +26,7 @@ public class DataBaseHelper1 extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE hoadon (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "tenkh TEXT NOT NULL, " +
-                "soban INTEGER NOT NULL,"+
+
                 "tongtien INTEGER NOT NULL," +
                 "ngay TEXT NOT NULL)");
 
@@ -40,7 +40,7 @@ public class DataBaseHelper1 extends SQLiteOpenHelper {
                 "FOREIGN KEY(idmon) REFERENCES menu(id), " +
                 "FOREIGN KEY(idhd) REFERENCES hoadon(id) ON DELETE CASCADE)");
         db.execSQL("INSERT INTO menu (tenmon, dongia) VALUES ('Bún bò', 40000);");
-        db.execSQL("INSERT INTO hoadon (tenkh, tongtien, soban, ngay) VALUES ('Nguyen Van A', 120000, 1, '2024-10-15');");
+        db.execSQL("INSERT INTO hoadon (tenkh, tongtien, soban, ngay) VALUES ('Nguyen Van A', 120000, '2024-10-15');");
         db.execSQL("INSERT INTO chitiethoadon (idmon, idhd, soluong) VALUES (1, 1, 3);");
 
     }

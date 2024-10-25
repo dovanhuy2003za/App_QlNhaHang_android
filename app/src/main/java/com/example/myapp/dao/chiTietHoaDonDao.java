@@ -20,31 +20,36 @@ public class chiTietHoaDonDao {
     public chiTietHoaDonDao(Context context) {
         dataBaseHelper1=new DataBaseHelper1(context);
     }
-    public ArrayList<dscthoadon> sellectAll(){
-        ArrayList<dscthoadon> list=new ArrayList<>();
-        SQLiteDatabase db=dataBaseHelper1.getReadableDatabase();
+    public ArrayList<dscthoadon> selectAll(int idhd) {
+        ArrayList<dscthoadon> list = new ArrayList<>();
+        SQLiteDatabase db = dataBaseHelper1.getReadableDatabase();
         db.beginTransaction();
         try {
-            //tạo câu lệnh truy vấn
-            Cursor cs = db.rawQuery("select * from chitiethoadon", null);//rawquery để truy vấn dữ liệu
+            // Query with JOIN to get tenmon, soluong, and dongia where idhd matches
+            String query = "SELECT menu.tenmon, chitiethoadon.soluong, menu.dongia " +
+                    "FROM chitiethoadon " +
+                    "JOIN menu ON chitiethoadon.idmon = menu.id " +
+                    "WHERE chitiethoadon.idhd = ?";
+
+            Cursor cs = db.rawQuery(query, new String[]{String.valueOf(idhd)});
+
             if (cs.getCount() > 0) {
-                cs.moveToFirst();//di chuyển con trỏ về lên đầu
+                cs.moveToFirst();
                 while (!cs.isAfterLast()) {
                     dscthoadon mn = new dscthoadon();
-                    mn.setId(cs.getInt(0));
-                    mn.setIdmon(cs.getInt(1));
-                    mn.setIdhd(cs.getInt(2));
-                    mn.setSoluong(cs.getInt(3));
+                    mn.setTenmon(cs.getString(0));  // assuming dscthoadon has a setTenmon method
+                    mn.setSoluong(cs.getInt(1));    // soluong
+                    mn.setDongia(cs.getInt(2));     // dongia
                     list.add(mn);
                     cs.moveToNext();
                 }
-                db.setTransactionSuccessful();//bd chạy thành công
+                db.setTransactionSuccessful();
             }
-
+            cs.close();
         } catch (Exception e) {
             Log.e(TAG, "Lỗi" + e);
         } finally {
-            db.endTransaction();//kết thúc lệnh chạy
+            db.endTransaction();
         }
         return list;
     }

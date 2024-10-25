@@ -33,8 +33,8 @@ public class hoadonDao {
                     mn.setId(cs.getInt(0));
                     mn.setTenkh(cs.getString(1));
                     mn.setTongtien(cs.getInt(2));
-                    mn.setSoban(cs.getInt(3));
-                    mn.setNgay(cs.getString(4));
+
+                    mn.setNgay(cs.getString(3));
                     list.add(mn);
                     cs.moveToNext();
                 }
@@ -54,7 +54,7 @@ public class hoadonDao {
         ContentValues values=new ContentValues();
         values.put("tenkh",mn.getTenkh());
         values.put("tongtien",mn.getTongtien());
-        values.put("soban",mn.getSoban());
+
         values.put("ngay",mn.getNgay());
         //nếu add thành công sẽ trả về giá trị tương ứng số hàng mà dữ liệu được add trong bảng
         long row=db.insert("hoadon",null,values);

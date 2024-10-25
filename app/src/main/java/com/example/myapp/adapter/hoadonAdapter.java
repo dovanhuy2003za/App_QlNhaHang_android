@@ -41,7 +41,7 @@ public class hoadonAdapter extends RecyclerView.Adapter<hoadonAdapter.viewHolder
             dsHoaDon hd=list.get(position);
             holder.txttenkh.setText(list.get(position).getTenkh());
             holder.txttt.setText(Integer.toString(list.get(position).getTongtien()));
-            holder.txtsb.setText(Integer.toString(list.get(position).getSoban()));
+
             holder.txtngay.setText(list.get(position).getNgay());
     }
 
@@ -50,7 +50,7 @@ public class hoadonAdapter extends RecyclerView.Adapter<hoadonAdapter.viewHolder
         return list.size();
     }
     public static class viewHolder extends RecyclerView.ViewHolder {
-        public TextView txttenkh, txttt, txtsb, txtngay;
+        public TextView txttenkh, txttt, txtngay;
 
         public CardView crdv;
 
@@ -58,7 +58,7 @@ public class hoadonAdapter extends RecyclerView.Adapter<hoadonAdapter.viewHolder
             super(itemView);
             txttenkh = itemView.findViewById(R.id.tenkh);
             txttt = itemView.findViewById(R.id.tongtien);
-            txtsb=itemView.findViewById(R.id.soban);
+
             txtngay=itemView.findViewById(R.id.ngaytt);
             crdv = itemView.findViewById(R.id.crdvhoadon);
         }

@@ -8,17 +8,33 @@
         android:id="@+id/dialog_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Custom Dialog Title"
+        android:text="Nhap thong tin mon"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_gravity="center"/>
 
     <EditText
-        android:id="@+id/dialog_input"
+        android:id="@+id/txttenkh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your input here"
+        android:hint="Nhập tên khách hàng"
         android:inputType="text"/>
+    <Spinner
+        android:id="@+id/menuSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"/>
+
+    <EditText
+        android:id="@+id/txtsoluong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập số lượng"
+        android:inputType="text"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rcvmonan"/>
 
     <Button
         android:id="@+id/dialog_save_button"
