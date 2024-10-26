@@ -1,5 +1,6 @@
 package com.example.myapp.dao;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -53,11 +54,25 @@ public class chiTietHoaDonDao {
         }
         return list;
     }
+    @SuppressLint("Range")
     public boolean insert(dscthoadon mn){
         SQLiteDatabase db=dataBaseHelper1.getWritableDatabase();
+        int idmon = -1; // Default to -1 if not found
+        String query = "SELECT id FROM menu WHERE tenmon = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{mn.getTenmon()});
+
+        if (cursor.moveToFirst()) {
+            idmon = cursor.getInt(cursor.getColumnIndex("id"));
+        }
+        cursor.close();
+
+        // Check if idmon was found
+        if (idmon == -1) {
+            return false; // idmon not found for the given tenmon
+        }
         //sử dụng contentvalue để đưa dữ liệu vào database
         ContentValues values=new ContentValues();
-        values.put("idmon",mn.getIdmon());
+        values.put("idmon",idmon);
         values.put("idhd",mn.getIdhd());
         values.put("soluong",mn.getSoluong());
 

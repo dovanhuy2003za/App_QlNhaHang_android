@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class NavigationDrawer extends AppCompatActivity {
+public class NavigationDrawer extends AppCompatActivity  {
     DrawerLayout drawlayout;
     Toolbar toolbar;
     private Fragment currentFrag;
@@ -126,6 +126,8 @@ public class NavigationDrawer extends AppCompatActivity {
 
         currentFrag = fragmentToShow;  // Cập nhật Fragment hiện tại
     }
+
+
     //replace
 
 }

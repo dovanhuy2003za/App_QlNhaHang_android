@@ -3,6 +3,11 @@ package com.example.myapp.model;
 public class dsHoaDon {
     private int id;
     private String tenkh;
+
+    public dsHoaDon(String tenkh) {
+        this.tenkh = tenkh;
+    }
+
     private  int tongtien;
     private String ngay;
 

@@ -9,6 +9,8 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.myapp.dao.hoadonDao;
+
 
 public class frgban1 extends Fragment {
     private Button btn1;
@@ -21,7 +23,7 @@ public class frgban1 extends Fragment {
     private Button btn8;
     private Button btn9;
     private Button btn10;
-
+    hoadonDao hdd;
 
     public frgban1() {
         // Required empty public constructor
@@ -48,7 +50,8 @@ public class frgban1 extends Fragment {
             public void onClick(View view) {
                 btn1.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                 int dialogKey =1;
-                openDialog("dialog_key_" + dialogKey);
+                int newidhoadon=hdd.createHoadon();
+                openDialog(newidhoadon);
             }
         });
         btn2.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +59,7 @@ public class frgban1 extends Fragment {
             public void onClick(View view) {
                 btn2.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                 int dialogKey =2;
-                openDialog("dialog_key_" + dialogKey);
+                //openDialog("dialog_key_" + dialogKey);
             }
         });
         btn3.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +67,7 @@ public class frgban1 extends Fragment {
             public void onClick(View view) {
                 btn3.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                 int dialogKey =3;
-                openDialog("dialog_key_" + dialogKey);
+                //openDialog("dialog_key_" + dialogKey);
             }
         });
         btn4.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +75,7 @@ public class frgban1 extends Fragment {
             public void onClick(View view) {
                 btn4.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                 int dialogKey =4;
-                openDialog("dialog_key_" + dialogKey);
+                //openDialog("dialog_key_" + dialogKey);
             }
         });
         btn5.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +83,7 @@ public class frgban1 extends Fragment {
             public void onClick(View view) {
                 btn5.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                 int dialogKey =5;
-                openDialog("dialog_key_" + dialogKey);
+                //openDialog("dialog_key_" + dialogKey);
             }
         });
         btn6.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +91,7 @@ public class frgban1 extends Fragment {
             public void onClick(View view) {
                 btn6.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                 int dialogKey =6;
-                openDialog("dialog_key_" + dialogKey);
+                //openDialog("dialog_key_" + dialogKey);
             }
         });
         btn7.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +99,7 @@ public class frgban1 extends Fragment {
             public void onClick(View view) {
                 btn7.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                 int dialogKey =7;
-                openDialog("dialog_key_" + dialogKey);
+                //openDialog("dialog_key_" + dialogKey);
             }
         });
         btn8.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +107,7 @@ public class frgban1 extends Fragment {
             public void onClick(View view) {
                 btn8.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                 int dialogKey =8;
-                openDialog("dialog_key_" + dialogKey);
+                //openDialog("dialog_key_" + dialogKey);
             }
         });
         btn9.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +115,7 @@ public class frgban1 extends Fragment {
             public void onClick(View view) {
                 btn9.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                 int dialogKey =9;
-                openDialog("dialog_key_" + dialogKey);
+                //openDialog("dialog_key_" + dialogKey);
             }
         });
         btn10.setOnClickListener(new View.OnClickListener() {
@@ -120,14 +123,14 @@ public class frgban1 extends Fragment {
             public void onClick(View view) {
                 btn10.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                 int dialogKey =10;
-                openDialog("dialog_key_" + dialogKey);
+                //openDialog("dialog_key_" + dialogKey);
             }
         });
 
         return view;
     }
-    private void openDialog(String dialogKey) {
-        Booking dialogFragment = new Booking(dialogKey);
+    private void openDialog(int newidhd) {
+        Booking dialogFragment = new Booking(newidhd);
         dialogFragment.show(getChildFragmentManager(), "dialog"); // Show dialog fragment
     }
 }

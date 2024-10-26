@@ -28,6 +28,11 @@ public class dscthoadon {
     }
 
 
+    public dscthoadon(int soluong, String tenmon,int idhd) {
+        this.soluong = soluong;
+        this.tenmon = tenmon;
+        this.idhd=idhd;
+    }
 
     public dscthoadon() {
         this.id=id;

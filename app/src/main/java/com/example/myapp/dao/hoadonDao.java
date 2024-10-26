@@ -19,6 +19,34 @@ public class hoadonDao {
     public hoadonDao(Context context) {
         dataBaseHelper1=new DataBaseHelper1(context);
     }
+    public int getTenkh(int hoadonId) {
+        int tenkh = 0;
+        SQLiteDatabase db=dataBaseHelper1.getReadableDatabase();
+        String query = "SELECT tenkh FROM hoadon WHERE id = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(hoadonId)});
+
+        if (cursor.moveToFirst()) {
+            tenkh = cursor.getInt(0);
+        }
+
+        cursor.close();
+        return tenkh;
+    }
+    public int getTongTien(int hoadonId) {
+        int tongtien = 0;
+        SQLiteDatabase db=dataBaseHelper1.getReadableDatabase();
+        String query = "SELECT tongtien FROM hoadon WHERE id = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(hoadonId)});
+
+        if (cursor.moveToFirst()) {
+            tongtien = cursor.getInt(0);
+        }
+
+        cursor.close();
+        return tongtien;
+    }
     public ArrayList<dsHoaDon> sellectAll(){
         ArrayList<dsHoaDon> list=new ArrayList<>();
         SQLiteDatabase db=dataBaseHelper1.getReadableDatabase();
@@ -48,16 +76,28 @@ public class hoadonDao {
         }
         return list;
     }
-    public boolean insert(dsHoaDon mn){
-        SQLiteDatabase db=dataBaseHelper1.getWritableDatabase();
-        //sử dụng contentvalue để đưa dữ liệu vào database
+    public int createHoadon() {
+        int hoadonId = -1; // Default value in case insertion fails
+        SQLiteDatabase db=dataBaseHelper1.getReadableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        try {
+            // Insert a new record into hoadon and get the ID of the inserted row
+            hoadonId = (int) db.insert("hoadon", null, values);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.close();
+        }
+
+        return hoadonId;
+    }
+    public boolean update(dsHoaDon mn){
+        SQLiteDatabase db =dataBaseHelper1.getWritableDatabase();
         ContentValues values=new ContentValues();
         values.put("tenkh",mn.getTenkh());
-        values.put("tongtien",mn.getTongtien());
-
-        values.put("ngay",mn.getNgay());
-        //nếu add thành công sẽ trả về giá trị tương ứng số hàng mà dữ liệu được add trong bảng
-        long row=db.insert("hoadon",null,values);
+        long row= db.update("hoadon",values,"id=?",new String[]{String.valueOf(mn.getId())});
         return (row>0);
     }
     public boolean delete(int id){

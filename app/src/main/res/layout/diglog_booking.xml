@@ -4,45 +4,16 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical">
-    <TextView
-        android:id="@+id/dialog_title"
+    <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nhap thong tin mon"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:layout_height="650dp"
+        android:background="@drawable/qr"
         android:layout_gravity="center"/>
-
-    <EditText
-        android:id="@+id/txttenkh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nhập tên khách hàng"
-        android:inputType="text"/>
-    <Spinner
-        android:id="@+id/menuSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:spinnerMode="dropdown"/>
-
-    <EditText
-        android:id="@+id/txtsoluong"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nhập số lượng"
-        android:inputType="text"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rcvmonan"/>
-
     <Button
-        android:id="@+id/dialog_save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
         android:layout_gravity="center"
-        android:padding="10dp"
-        android:layout_marginTop="16dp"/>
+        android:id="@+id/clear"
+        android:text="OK"/>
 
 </LinearLayout>

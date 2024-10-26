@@ -3,10 +3,13 @@ package com.example.myapp;
 import static android.R.layout.simple_spinner_item;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
+import com.example.myapp.database.DataBaseHelper1;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,15 +19,19 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapp.adapter.hoadonAdapter;
 import com.example.myapp.dao.hoadonDao;
 import com.example.myapp.dao.menuDao;
 import com.example.myapp.database.DataBaseHelper1;
+import com.example.myapp.model.dsHoaDon;
 import com.example.myapp.model.dscthoadon;
 import com.example.myapp.dao.chiTietHoaDonDao;
 import com.example.myapp.adapter.chiTietHoaDonAdapter;
@@ -35,22 +42,30 @@ import java.util.List;
 
 
 public class Booking extends DialogFragment {
-    private static final String PREFS_NAME = "MyPrefs";
-    private String userInputKey;
+
+
+
+    private int idhd;
     private TextView textView;
+    private int tongtien = 0;
     RecyclerView rcv;
     private Spinner menuSpinner;
     private ArrayList<dsmenu> menuList;
     private ArrayAdapter<String> adapter;
+    private String name;
     dsmenu dm;
     menuDao md;
     ArrayList<dscthoadon> list=new ArrayList<>();
     chiTietHoaDonDao ctd;
     chiTietHoaDonAdapter cta;
 
-    public Booking(String userInputKey) {
+    Button btnthem;
+
+
+    public Booking( int idhd ) {
         // Required empty public constructor
-        this.userInputKey = userInputKey;
+
+        this.idhd=idhd;
     }
 
 
@@ -62,9 +77,10 @@ public class Booking extends DialogFragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_booking, container, false);
         EditText dialogInput = view.findViewById(R.id.txttenkh);
+        btnthem=view.findViewById(R.id.btnthemmon);
         rcv=view.findViewById(R.id.rcvmonan);
         ctd=new chiTietHoaDonDao(getContext());
-        list=ctd.selectAll(1);
+        list=ctd.selectAll(idhd);
         rcv.setLayoutManager(new LinearLayoutManager(getContext()));
         cta=new chiTietHoaDonAdapter(getContext(),list);
         rcv.setAdapter(cta);
@@ -87,38 +103,61 @@ public class Booking extends DialogFragment {
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         menuSpinner.setAdapter(adapter);
-        restoreInputData(dialogInput);
-
-        // Set up a TextWatcher to auto-save input
-        dialogInput.addTextChangedListener(new TextWatcher() {
+        menuSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No action needed here
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                 name=adapterView.getItemAtPosition(i).toString();
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Save data to SharedPreferences as user types
-                saveData(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // No action needed here
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(getContext(),"Chọn món trước",Toast.LENGTH_SHORT).show();
             }
         });
+
+        EditText sl=view.findViewById(R.id.txtsoluong);
+        TextView tt=view.findViewById(R.id.tvtt);
+        hoadonDao hd=new hoadonDao(getContext());
+        dialogInput.setText(hd.getTenkh(idhd));
+        tongtien=hd.getTongTien(idhd);
+        tt.setText("Tổng tiền: "+tongtien);
+        btnthem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    String tenkh=dialogInput.getText().toString();
+                    dsHoaDon a=new dsHoaDon(tenkh);
+                    int soluong=Integer.parseInt(sl.getText().toString());
+                    dscthoadon cthd=new dscthoadon(soluong,name,idhd);
+                    if (ctd.insert(cthd)&hd.update(a)){
+                        list.clear();
+                        list.addAll(ctd.selectAll(idhd));
+                        cta.notifyDataSetChanged();
+                        tongtien=hd.getTongTien(idhd);
+                        tt.setText("Tổng tiền: "+tongtien);
+                        sl.setText("");
+                        Toast.makeText(getContext(),"Đã cập nhật",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getContext(),"Cập nhật thất bại",Toast.LENGTH_SHORT).show();
+                    }
+
+
+            }
+        });
+
+        Button btntt=view.findViewById(R.id.dialog_save_button);
+        btntt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog=new Dialog(getContext());
+                dialog.setContentView(R.layout.diglog_booking);
+                dialog.show();
+            }
+        });
+
         return view;
-    }
-    private void saveData(String data) {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(userInputKey, data); // Save data using the unique key
-        editor.apply();
+
     }
 
-    private void restoreInputData(EditText dialogInput) {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        String savedInput = sharedPreferences.getString(userInputKey, "");
-        dialogInput.setText(savedInput); // Populate the EditText with the saved data
-    }
+
 }
