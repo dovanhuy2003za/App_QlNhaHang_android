@@ -1,0 +1,11 @@
+1--
+//clone project nay ve may
+git clone https://github.com/dovanhuy2003za/App_QlNhaHang_android.git
+
+//code xong phan cua minh thi day len theo thu tu lenh:
+2--
+git status
+git add . 
+git commit -m "viet ten chuc nang minh vua code vao day"
+git pull --rebase origin 'ten nhanh' vi du: git pull --rebase origin main
+git push origin 'ten nhanh cua minh'(ko push len nhanh cua nguoi khac)	vi du: git push origin main
