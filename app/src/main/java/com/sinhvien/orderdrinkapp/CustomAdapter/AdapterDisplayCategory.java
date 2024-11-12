@@ -78,15 +78,15 @@ public class AdapterDisplayCategory extends BaseAdapter {
                     viewHolder.img_customcategory_HinhLoai.setImageBitmap(bitmap);
                 } catch (IllegalArgumentException e) {
                     // Xử lý khi có lỗi giải mã Base64
-                    viewHolder.img_customcategory_HinhLoai.setImageResource(R.drawable.cafe_americano); // Hình ảnh mặc định
+                    viewHolder.img_customcategory_HinhLoai.setImageResource(R.drawable.logochinh); // Hình ảnh mặc định
                     e.printStackTrace();
                 }
             } else {
                 // Nếu chuỗi không hợp lệ, sử dụng hình ảnh mặc định
-                viewHolder.img_customcategory_HinhLoai.setImageResource(R.drawable.cafe_americano);
+                viewHolder.img_customcategory_HinhLoai.setImageResource(R.drawable.logochinh);
             }
         } else {
-            viewHolder.img_customcategory_HinhLoai.setImageResource(R.drawable.cafe_americano); // Hình ảnh mặc định
+            viewHolder.img_customcategory_HinhLoai.setImageResource(R.drawable.logochinh); // Hình ảnh mặc định
         }
 
         return view;

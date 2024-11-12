@@ -14,6 +14,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ import com.sinhvien.orderdrinkapp.DAO.LoaiMonDAO;
 import com.sinhvien.orderdrinkapp.DTO.LoaiMonDTO;
 import com.sinhvien.orderdrinkapp.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -35,15 +37,16 @@ public class AddCategoryActivity extends AppCompatActivity implements View.OnCli
     TextView TXT_addcategory_title;
     TextInputLayout TXTL_addcategory_TenLoai;
     LoaiMonDAO loaiMonDAO;
+    Bitmap bitmapold;
     int maloai = 0;
-    Uri imageUri; // Biến để lưu URI của hình ảnh
+     //imageUri; // Biến để lưu URI của hình ảnh
 
     ActivityResultLauncher<Intent> resultLauncherOpenIMG = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        imageUri = result.getData().getData(); // Lưu URI của hình ảnh
+                        Uri imageUri = result.getData().getData(); // Lưu URI của hình ảnh
                         try {
                             InputStream inputStream = getContentResolver().openInputStream(imageUri);
                             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
@@ -78,8 +81,11 @@ public class AddCategoryActivity extends AppCompatActivity implements View.OnCli
 
             // Hiển thị lại thông tin từ csdl
             TXTL_addcategory_TenLoai.getEditText().setText(loaiMonDTO.getTenLoai());
-            imageUri = Uri.parse(loaiMonDTO.getHinhAnh()); // Lấy đường dẫn hình ảnh từ CSDL
-            IMG_addcategory_ThemHinh.setImageURI(imageUri); // Hiển thị hình ảnh
+            byte[] menuimage = Base64.decode(loaiMonDTO.getHinhAnh(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(menuimage, 0, menuimage.length);
+            IMG_addcategory_ThemHinh.setImageBitmap(bitmap);
+//            Uri imageUri = Uri.parse(loaiMonDTO.getHinhAnh()); // Lấy đường dẫn hình ảnh từ CSDL
+//            IMG_addcategory_ThemHinh.setImageURI(imageUri); // Hiển thị hình ảnh
             BTN_addcategory_TaoLoai.setText("Sửa loại");
         }
         //endregion
@@ -115,7 +121,7 @@ public class AddCategoryActivity extends AppCompatActivity implements View.OnCli
                 String sTenLoai = TXTL_addcategory_TenLoai.getEditText().getText().toString();
                 LoaiMonDTO loaiMonDTO = new LoaiMonDTO();
                 loaiMonDTO.setTenLoai(sTenLoai);
-                loaiMonDTO.setHinhAnh(imageUri.toString()); // Lưu đường dẫn hình ảnh dưới dạng String
+                loaiMonDTO.setHinhAnh(imageViewToBase64(IMG_addcategory_ThemHinh)); // Lưu đường dẫn hình ảnh dưới dạng String
 
                 if (maloai != 0) {
                     ktra = loaiMonDAO.SuaLoaiMon(loaiMonDTO, maloai);
@@ -133,15 +139,35 @@ public class AddCategoryActivity extends AppCompatActivity implements View.OnCli
                 break;
         }
     }
+    // Chuyển ảnh bitmap thành Base64 string
+    private String imageViewToBase64(ImageView imageView) {
+        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
+    }
 
+    //region Validate field
     private boolean validateImage() {
-        if (imageUri == null) {
+        BitmapDrawable drawable = (BitmapDrawable) IMG_addcategory_ThemHinh.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();
+
+        if (bitmap == bitmapold) {
             Toast.makeText(getApplicationContext(), "Xin chọn hình ảnh", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
         }
     }
+//    private boolean validateImage() {
+//        if (imageUri == null) {
+//            Toast.makeText(getApplicationContext(), "Xin chọn hình ảnh", Toast.LENGTH_SHORT).show();
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
     private boolean validateName() {
         String val = TXTL_addcategory_TenLoai.getEditText().getText().toString().trim();

@@ -61,7 +61,7 @@ public class CreateDatabase extends SQLiteOpenHelper {
     public static String TBL_CHITIETDONDAT_SOLUONG = "SOLUONG";
 
     public CreateDatabase(Context context) {
-        super(context, "OrderDrink", null, 9);
+        super(context, "OrderDrink", null, 10);
     }
 
     // Thực hiện tạo bảng

@@ -34,7 +34,7 @@ public class BanAnDAO {
 
     //Hàm xóa bàn ăn theo mã
     public boolean XoaBanTheoMa(int maban){
-        long ktra =database.delete(CreateDatabase.TBL_BAN,CreateDatabase.TBL_BAN_MABAN+" = "+maban,null);
+        long ktra = database.delete(CreateDatabase.TBL_BAN, CreateDatabase.TBL_BAN_MABAN + " = ?", new String[]{String.valueOf(maban)});
         if(ktra != 0){
             return true;
         }else {
